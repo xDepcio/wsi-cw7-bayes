@@ -1,0 +1,79 @@
+[
+    {
+        "name": "Chair",
+        "parents": [],
+        "probabilities": [
+            {
+                "parentsValues": [],
+                "value": 0.8
+            }
+        ]
+    },
+    {
+        "name": "Sport",
+        "parents": [],
+        "probabilities": [
+            {
+                "parentsValues": [],
+                "value": 0.02
+            }
+        ]
+    },
+    {
+        "name": "Back",
+        "parents": [
+            "Chair",
+            "Sport"
+        ],
+        "probabilities": [
+            {
+                "parentsValues": [
+                    true,
+                    true
+                ],
+                "value": 0.90
+            },
+            {
+                "parentsValues": [
+                    true,
+                    false
+                ],
+                "value": 0.2
+            },
+            {
+                "parentsValues": [
+                    false,
+                    true
+                ],
+                "value": 0.9
+            },
+            {
+                "parentsValues": [
+                    false,
+                    false
+                ],
+                "value": 0.01
+            }
+        ]
+    },
+    {
+        "name": "Ache",
+        "parents": [
+            "Back"
+        ],
+        "probabilities": [
+            {
+                "parentsValues": [
+                    true
+                ],
+                "value": 0.7
+            },
+            {
+                "parentsValues": [
+                    false
+                ],
+                "value": 0.1
+            }
+        ]
+    }
+]
