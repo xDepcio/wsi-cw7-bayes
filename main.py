@@ -1,4 +1,5 @@
 import json
+from os import name
 import random
 from typing import Dict, List, Literal, TypedDict, Union
 
@@ -19,13 +20,13 @@ class NetworkNodeData(TypedDict):
 
 class NetworkNode:
     name: str
-    parents_names: list[str]
+    parents_names: List[NetworkNodesNames]
     probabilities: dict[tuple[bool, ...], float]
 
     def __init__(
         self,
         name: str,
-        parents_names: list[str],
+        parents_names: List[NetworkNodesNames],
         probabilities: dict[tuple[bool, ...], float],
     ) -> None:
         self.name = name
@@ -38,9 +39,11 @@ class NetworkNode:
 
 class BayesNetwork:
     node_map: Dict[NetworkNodesNames, NetworkNode]
+    nodes_sequence: List[NetworkNodesNames]
 
     def __init__(self, network_data_path: str) -> None:
         self.node_map = {}
+        self.nodes_sequence = []
         self._load_network_data(network_data_path)
 
     def _load_network_data(self, network_data_path: str) -> None:
@@ -57,6 +60,7 @@ class BayesNetwork:
                 parents_names=node_data["parents"],
                 probabilities=node_probabilites,
             )
+            self.nodes_sequence.append(node_data[name])
 
     def generate_data(self) -> tuple[bool, ...]:
         data_results = [False for _ in self.node_map]
