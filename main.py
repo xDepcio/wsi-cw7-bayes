@@ -1,5 +1,5 @@
 import argparse
-from ast import arg
+
 from network import BayesNetwork
 
 
@@ -18,6 +18,12 @@ def generate_csv_file(
     data = [net.generate_data() for _ in range(count)]
     col_names = [name for name in net.nodes_sequence]
     rows = [list(map(str, row)) for row in data]
+    for i, row in enumerate(rows):
+        for j, col_name in enumerate(col_names):
+            row[j] = col_name + "=" + row[j]
+        row = [row[-1], *row[:-1]]
+        rows[i] = row
+
     save_to_csv(output, rows, col_names if save_headers else [])
 
 
