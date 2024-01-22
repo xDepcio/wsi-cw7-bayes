@@ -12,9 +12,13 @@ def save_to_csv(path: str, rows: list, col_names: list[str] = []) -> None:
 
 
 def generate_csv_file(
-    network_data_path: str, count: int, output: str, save_headers: bool
+    network_data_path: str,
+    count: int,
+    output: str,
+    save_headers: bool,
 ) -> None:
     net = BayesNetwork(network_data_path)
+
     data = [net.generate_data() for _ in range(count)]
     col_names = [name for name in net.nodes_sequence]
     rows = [list(map(str, row)) for row in data]
@@ -29,7 +33,7 @@ def generate_csv_file(
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("network_data_path", type=str)
+    parser.add_argument("-network_data_path", type=str, default="network_data.json")
     parser.add_argument("--count", "-c", type=int, default=100)
     parser.add_argument("--output", "-o", type=str, default="data.csv")
     parser.add_argument("--col-headers", "-ch", default=False, action="store_true")

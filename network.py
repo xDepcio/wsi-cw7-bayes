@@ -4,6 +4,7 @@ from typing import Dict, List, Literal, TypedDict
 
 type NetworkNodesNames = Literal["Chair", "Sport", "Ache", "Back"]
 type NetworkData = List[NetworkNodeData]
+type Conditions = tuple[bool, ...]
 
 
 class Probability(TypedDict):
@@ -20,19 +21,19 @@ class NetworkNodeData(TypedDict):
 class NetworkNode:
     name: str
     parents_names: List[NetworkNodesNames]
-    probabilities: dict[tuple[bool, ...], float]
+    probabilities: dict[Conditions, float]
 
     def __init__(
         self,
         name: str,
         parents_names: List[NetworkNodesNames],
-        probabilities: dict[tuple[bool, ...], float],
+        probabilities: dict[Conditions, float],
     ) -> None:
         self.name = name
         self.parents_names = parents_names
         self.probabilities = probabilities
 
-    def generate_data(self, conditions: tuple[bool, ...]) -> bool:
+    def generate_data(self, conditions: Conditions) -> bool:
         return self.probabilities[conditions] > random.random()
 
 
@@ -61,7 +62,7 @@ class BayesNetwork:
             )
             self.nodes_sequence.append(node_data["name"])
 
-    def generate_data(self) -> tuple[bool, ...]:
+    def generate_data(self) -> Conditions:
         data_results: Dict[NetworkNodesNames, bool] = {
             name: False for name in self.nodes_sequence
         }

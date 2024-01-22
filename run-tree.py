@@ -21,7 +21,7 @@ def main():
 
     avg_acc = total_acc / ALGO_RUNS
     avg_conf = np.mean(all_confs, axis=0)
-    print(f"Breast Cancer Accuracy: {avg_acc}, Confusion Matrix: {avg_conf}")
+    print(f"Accuracy: {avg_acc}, Confusion Matrix: {avg_conf}")
 
     TP, TN, FP, FN = avg_conf
     czulosc = TP / (TP + FN)
